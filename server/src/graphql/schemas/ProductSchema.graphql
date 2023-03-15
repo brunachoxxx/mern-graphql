@@ -1,0 +1,39 @@
+type Query {
+  products: [Product]
+  product(id: ID!): Product
+}
+
+type Product {
+  name: String
+  price: Int
+  quantity: Int
+  state: Boolean
+  img: String
+  id: ID
+}
+
+type ProductMutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  product: Product
+}
+
+type Mutation {
+  addProduct(
+    name: String!
+    price: Int!
+    quantity: Int!
+    img: String
+  ): ProductMutationResponse
+
+  updateProduct(
+    name: String
+    price: Int
+    quantity: Int
+    state: Boolean
+    img: String
+  ): ProductMutationResponse
+
+  delProduct(id: ID!): ProductMutationResponse
+}

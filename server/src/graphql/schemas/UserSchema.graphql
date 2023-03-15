@@ -1,0 +1,34 @@
+type Query {
+  users: [User]
+  user(_id: ID!): User
+}
+
+type User {
+  name: String
+  email: String
+  password: String
+  state: Boolean
+  auth: Boolean
+  img: String
+  _id: ID
+}
+
+type UserMutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+type Mutation {
+  addUser(email: String!, password: String!): UserMutationResponse
+
+  updateUser(
+    id: ID!
+    email: String
+    password: String
+    img: String
+  ): UserMutationResponse
+
+  delUser(id: ID!): UserMutationResponse
+}
