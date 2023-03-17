@@ -3,7 +3,7 @@ import { user } from "../interface/user.js";
 
 const userSchema = new Schema<user>(
   {
-    name: { type: String, required: false, unique: true },
+    name: { type: String, required: false, unique: false },
     mail: { type: String, required: true, unique: true },
     password: { type: String, required: true }, // not unique for testing
     img: { type: String, unique: false },
@@ -17,5 +17,4 @@ const userSchema = new Schema<user>(
   }
 );
 
-const UserModel = model("User", userSchema);
-export default UserModel;
+export default model("User", userSchema);

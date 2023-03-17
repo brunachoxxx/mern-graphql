@@ -1,6 +1,6 @@
 type Query {
   products: [Product]
-  product(id: ID!): Product
+  product(_id: ID!): Product
 }
 
 type Product {
@@ -9,7 +9,9 @@ type Product {
   quantity: Int
   state: Boolean
   img: String
-  id: ID
+  _id: ID
+  createdAt: String
+  updatedAt: String
 }
 
 type ProductMutationResponse {
@@ -17,6 +19,8 @@ type ProductMutationResponse {
   success: Boolean!
   message: String!
   product: Product
+  createdAt: String
+  updatedAt: String
 }
 
 type Mutation {
@@ -24,16 +28,19 @@ type Mutation {
     name: String!
     price: Int!
     quantity: Int!
+    description: String!
     img: String
-  ): ProductMutationResponse
+  ): Product
 
   updateProduct(
+    _id: ID!
     name: String
     price: Int
     quantity: Int
+    description: String
     state: Boolean
     img: String
   ): ProductMutationResponse
 
-  delProduct(id: ID!): ProductMutationResponse
+  delProduct(_id: ID!): ProductMutationResponse
 }

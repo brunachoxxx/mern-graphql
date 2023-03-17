@@ -11,6 +11,8 @@ type User {
   auth: Boolean
   img: String
   _id: ID
+  createdAt: String
+  updatedAt: String
 }
 
 type UserMutationResponse {
@@ -18,17 +20,20 @@ type UserMutationResponse {
   success: Boolean!
   message: String!
   user: User
+  createdAt: String
+  updatedAt: String
 }
 
 type Mutation {
-  addUser(email: String!, password: String!): UserMutationResponse
+  addUser(email: String!, password: String!): User
 
   updateUser(
-    id: ID!
+    _id: ID!
+    name: String
     email: String
     password: String
     img: String
   ): UserMutationResponse
 
-  delUser(id: ID!): UserMutationResponse
+  delUser(_id: ID!): UserMutationResponse
 }

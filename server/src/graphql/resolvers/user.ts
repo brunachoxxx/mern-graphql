@@ -1,22 +1,22 @@
-import UserModel from "../../models/user.js";
+import User from "../../models/user.js";
+import { Resolvers } from "../../interface/resolver-types.js";
 
-export const userResolvers = {
+export const userResolvers: Resolvers = {
   Query: {
-    users: async () => {
-      try {
-        const data = await UserModel.find();
-        return data;
-      } catch (error: any) {
-        console.error(error.message, "fail getting users");
-      }
-    },
-    /* user: async (_, { _id }) => {
-      try {
-        const data = await UserModel.findById(_id);
-        return data;
-      } catch (error: any) {
-        console.error(error.message, "fail getting user");
-      }
+    users: async () => await User.find(),
+    user: async (_, { _id }) => await User.findById(_id),
+  },
+  Mutation: {
+    /* addUser: async (_, { email, password }) => {
+      return await User.create({ email, password });
     }, */
+
+    updateUser: async (_, args) => {
+      return await User.findByIdAndUpdate(args._id, args);
+    },
+
+    delUser: async (_, { _id }) => {
+      return await User.findByIdAndUpdate(_id, { state: false }, { new: true });
+    },
   },
 };

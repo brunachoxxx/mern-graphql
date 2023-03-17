@@ -18,15 +18,12 @@ const rootRresolvers = {
   },
 };
 
-const userTypeDefs = readFileSync(__dirname + "/schemas/UserSchema.graphql", {
+const userTypeDefs = readFileSync(__dirname + "/schemas/user.graphql", {
   encoding: "utf-8",
 });
-const productTypeDefs = readFileSync(
-  __dirname + "/schemas/ProductSchema.graphql",
-  {
-    encoding: "utf-8",
-  }
-);
+const productTypeDefs = readFileSync(__dirname + "/schemas/product.graphql", {
+  encoding: "utf-8",
+});
 
 export const typeDefs = [rootTypeDefs, userTypeDefs, productTypeDefs];
 export const resolvers = [rootRresolvers, userResolvers, productResolvers];
