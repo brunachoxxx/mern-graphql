@@ -1,22 +1,24 @@
 import User from "../../models/user.js";
 import { Resolvers } from "../../interface/resolver-types.js";
+import { regUser } from "../../services/users.js";
 
 export const userResolvers: Resolvers = {
   Query: {
     users: async () => await User.find(),
-    user: async (_, { _id }) => await User.findById(_id),
+    user: async (_, { id }) => await User.findById(id),
   },
   Mutation: {
-    /* addUser: async (_, { email, password }) => {
-      return await User.create({ email, password });
-    }, */
-
-    updateUser: async (_, args) => {
-      return await User.findByIdAndUpdate(args._id, args);
+    addUser: async (_, args) => {
+      const register = await regUser(args);
+      return register;
     },
 
-    delUser: async (_, { _id }) => {
-      return await User.findByIdAndUpdate(_id, { state: false }, { new: true });
+    updateUser: async (_, args) => {
+      return await User.findByIdAndUpdate(args.id, args);
+    },
+
+    delUser: async (_, { id }) => {
+      return await User.findByIdAndUpdate(id, { state: false }, { new: true });
     },
   },
 };

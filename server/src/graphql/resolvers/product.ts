@@ -5,22 +5,20 @@ export const productResolvers: Resolvers = {
     products: async () => {
       return await Product.find();
     },
-    product: async (_, _id) => {
-      return await Product.findById(_id);
+    product: async (_, id) => {
+      return await Product.findById(id);
     },
   },
 
   Mutation: {
-    /* addProduct: async (_, args) => {
-      return await Product.create(args);
-    }, */
+    addProduct: async (_, args) => await Product.create(args),
 
     updateProduct: async (_, args) => {
-      return await Product.findByIdAndUpdate(args._id, args);
+      return await Product.findByIdAndUpdate(args.id, args);
     },
-    delProduct: async (_, { _id }) => {
+    delProduct: async (_, { id }) => {
       return await Product.findByIdAndUpdate(
-        _id,
+        id,
         { state: false },
         { new: true }
       );

@@ -1,14 +1,10 @@
 export interface user {
-  name: string;
-  mail: string;
+  id?: string;
+  name?: string;
+  email: string;
   password: string;
   img?: string;
-  role: "USER" | "ADMIN";
+  role?: "USER" | "ADMIN";
   state?: boolean;
-  googleAuth?: boolean;
-}
-
-export interface uQueryR {
-  user: () => void;
-  users: () => void;
+  auth?: boolean;
 }

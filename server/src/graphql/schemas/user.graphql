@@ -1,6 +1,6 @@
 type Query {
   users: [User]
-  user(_id: ID!): User
+  user(id: ID!): User
 }
 
 type User {
@@ -10,9 +10,9 @@ type User {
   state: Boolean
   auth: Boolean
   img: String
-  _id: ID
-  createdAt: String
-  updatedAt: String
+  id: ID
+  #createdAt: String
+  #updatedAt: String
 }
 
 type UserMutationResponse {
@@ -20,20 +20,19 @@ type UserMutationResponse {
   success: Boolean!
   message: String!
   user: User
-  createdAt: String
-  updatedAt: String
+  token: String
 }
 
 type Mutation {
-  addUser(email: String!, password: String!): User
+  addUser(email: String!, password: String!): UserMutationResponse
 
   updateUser(
-    _id: ID!
+    id: ID!
     name: String
     email: String
     password: String
     img: String
   ): UserMutationResponse
 
-  delUser(_id: ID!): UserMutationResponse
+  delUser(id: ID!): UserMutationResponse
 }

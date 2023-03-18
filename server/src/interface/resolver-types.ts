@@ -17,7 +17,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProduct?: Maybe<Product>;
-  addUser?: Maybe<User>;
+  addUser?: Maybe<UserMutationResponse>;
   delProduct?: Maybe<ProductMutationResponse>;
   delUser?: Maybe<UserMutationResponse>;
   updateProduct?: Maybe<ProductMutationResponse>;
@@ -41,18 +41,18 @@ export type MutationAddUserArgs = {
 
 
 export type MutationDelProductArgs = {
-  _id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 
 export type MutationDelUserArgs = {
-  _id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 
 export type MutationUpdateProductArgs = {
-  _id: Scalars['ID'];
   description?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
   img?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
@@ -62,8 +62,8 @@ export type MutationUpdateProductArgs = {
 
 
 export type MutationUpdateUserArgs = {
-  _id: Scalars['ID'];
   email?: InputMaybe<Scalars['String']>;
+  id: Scalars['ID'];
   img?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
@@ -71,24 +71,20 @@ export type MutationUpdateUserArgs = {
 
 export type Product = {
   __typename?: 'Product';
-  _id?: Maybe<Scalars['ID']>;
-  createdAt?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   quantity?: Maybe<Scalars['Int']>;
   state?: Maybe<Scalars['Boolean']>;
-  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type ProductMutationResponse = {
   __typename?: 'ProductMutationResponse';
   code: Scalars['String'];
-  createdAt?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   product?: Maybe<Product>;
   success: Scalars['Boolean'];
-  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -101,34 +97,31 @@ export type Query = {
 
 
 export type QueryProductArgs = {
-  _id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 
 export type QueryUserArgs = {
-  _id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type User = {
   __typename?: 'User';
-  _id?: Maybe<Scalars['ID']>;
   auth?: Maybe<Scalars['Boolean']>;
-  createdAt?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['Boolean']>;
-  updatedAt?: Maybe<Scalars['String']>;
 };
 
 export type UserMutationResponse = {
   __typename?: 'UserMutationResponse';
   code: Scalars['String'];
-  createdAt?: Maybe<Scalars['String']>;
   message: Scalars['String'];
   success: Scalars['Boolean'];
-  updatedAt?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
   user?: Maybe<User>;
 };
 
@@ -230,61 +223,54 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'name' | 'price' | 'quantity'>>;
-  addUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password'>>;
-  delProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelProductArgs, '_id'>>;
-  delUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelUserArgs, '_id'>>;
-  updateProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, '_id'>>;
-  updateUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, '_id'>>;
+  addUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password'>>;
+  delProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelProductArgs, 'id'>>;
+  delUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelUserArgs, 'id'>>;
+  updateProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id'>>;
+  updateUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id'>>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   state?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductMutationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductMutationResponse'] = ResolversParentTypes['ProductMutationResponse']> = {
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, '_id'>>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, '_id'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   auth?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   state?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserMutationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserMutationResponse'] = ResolversParentTypes['UserMutationResponse']> = {
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
