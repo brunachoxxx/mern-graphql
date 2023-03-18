@@ -17,9 +17,10 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProduct?: Maybe<Product>;
-  addUser?: Maybe<UserMutationResponse>;
   delProduct?: Maybe<ProductMutationResponse>;
   delUser?: Maybe<UserMutationResponse>;
+  loginUser?: Maybe<UserMutationResponse>;
+  regUser?: Maybe<UserMutationResponse>;
   updateProduct?: Maybe<ProductMutationResponse>;
   updateUser?: Maybe<UserMutationResponse>;
 };
@@ -34,12 +35,6 @@ export type MutationAddProductArgs = {
 };
 
 
-export type MutationAddUserArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
-};
-
-
 export type MutationDelProductArgs = {
   id: Scalars['ID'];
 };
@@ -47,6 +42,18 @@ export type MutationDelProductArgs = {
 
 export type MutationDelUserArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationLoginUserArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type MutationRegUserArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -223,9 +230,10 @@ export type ResolversParentTypes = {
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'name' | 'price' | 'quantity'>>;
-  addUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'password'>>;
   delProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelProductArgs, 'id'>>;
   delUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelUserArgs, 'id'>>;
+  loginUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
+  regUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationRegUserArgs, 'email' | 'password'>>;
   updateProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id'>>;
   updateUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id'>>;
 };

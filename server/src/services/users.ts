@@ -63,7 +63,7 @@ export const loginUser = async ({ email, password }: user) => {
     return {
       code: "200",
       success: true,
-      message: `User ${onDb.email} Logged`,
+      message: `User ${onDb.email} Logged In`,
       user: onDb,
       token,
     };

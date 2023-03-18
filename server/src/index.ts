@@ -7,6 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./graphql/index.js";
 import { dbConnect } from "./db/mongodb.js";
+import { jwtValidation } from "./middlewares/jwtValidation.js";
 
 interface MyContext {
   token?: string;
@@ -35,6 +36,7 @@ await server.start();
 // and our expressMiddleware function.
 app.use(
   "/graphql",
+  //jwtValidation,
   cors<cors.CorsRequest>(),
   bodyParser.json(),
   // expressMiddleware accepts the same arguments:
