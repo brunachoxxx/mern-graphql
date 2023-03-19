@@ -4,7 +4,6 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 import pkg from "bcryptjs";
 import { jwtValidation } from "../utils/jwtValidation.js";
-import { validate } from "graphql";
 const { genSaltSync, hashSync, compare } = pkg;
 
 export const reg = async ({ email, password }: user) => {
@@ -80,6 +79,7 @@ export const login = async ({ email, password }: user) => {
 
 export const update = async (id: string, args: {}, token: string) => {
   try {
+    console.log(token);
     await jwtValidation(token);
     const user = await User.findByIdAndUpdate(id, args);
     if (!user) {
@@ -117,13 +117,13 @@ export const del = async (id: string, token: string) => {
       return {
         code: "400",
         success: false,
-        message: "Error erasing user",
+        message: "Error deleting user",
       };
     }
     return {
       code: "200",
       success: true,
-      message: `User ${user.email} erased`,
+      message: `User ${user.email} deleted`,
       user: user,
       token,
     };
