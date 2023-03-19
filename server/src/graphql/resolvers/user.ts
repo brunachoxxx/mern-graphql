@@ -1,6 +1,6 @@
 import User from "../../models/user.js";
 import { Resolvers } from "../../interface/resolver-types.js";
-import { regUser, loginUser, updateUser } from "../../services/users.js";
+import { reg, login, update, del } from "../../services/users.js";
 
 export const userResolvers: Resolvers = {
   Query: {
@@ -9,21 +9,19 @@ export const userResolvers: Resolvers = {
   },
   Mutation: {
     regUser: async (_, args) => {
-      const register = await regUser(args);
-      return register;
+      return await reg(args);
     },
 
     loginUser: async (_, args) => {
-      const log = await loginUser(args);
-      return log;
+      return await login(args);
     },
 
     updateUser: async (_, args, token) => {
-      return await updateUser(args.id, args, token);
+      return await update(args.id, args, token);
     },
 
     delUser: async (_, { id }, token) => {
-      return await User.findByIdAndUpdate(id, { state: false }, { new: true });
+      return await del(id, token);
     },
   },
 };

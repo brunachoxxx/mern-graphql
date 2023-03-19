@@ -7,7 +7,7 @@ import { jwtValidation } from "../utils/jwtValidation.js";
 import { validate } from "graphql";
 const { genSaltSync, hashSync, compare } = pkg;
 
-export const regUser = async ({ email, password }: user) => {
+export const reg = async ({ email, password }: user) => {
   try {
     const onDb = await User.findOne({ email });
     if (!onDb) {
@@ -16,7 +16,7 @@ export const regUser = async ({ email, password }: user) => {
       const data = await User.create({ email, password: encrypPw });
       const SECRETJWTKEY = <string>process.env.SECRETJWTKEY;
       const token = jwt.sign({ id: data.id }, SECRETJWTKEY, {
-        expiresIn: "20m",
+        expiresIn: "1h",
       });
       return {
         code: "200",
@@ -40,7 +40,7 @@ export const regUser = async ({ email, password }: user) => {
   }
 };
 
-export const loginUser = async ({ email, password }: user) => {
+export const login = async ({ email, password }: user) => {
   try {
     const onDb = await User.findOne({ email });
     if (!onDb) {
@@ -60,7 +60,7 @@ export const loginUser = async ({ email, password }: user) => {
     }
     const SECRETJWTKEY = <string>process.env.SECRETJWTKEY;
     const token = jwt.sign({ id: onDb.id }, SECRETJWTKEY, {
-      expiresIn: "20m",
+      expiresIn: "1h",
     });
     return {
       code: "200",
@@ -78,10 +78,10 @@ export const loginUser = async ({ email, password }: user) => {
   }
 };
 
-export const updateUser = async (id: string, args: {}, token: string) => {
+export const update = async (id: string, args: {}, token: string) => {
   try {
-    const validated = await jwtValidation(token);
-    const user = await User.findByIdAndUpdate(validated.id, args);
+    await jwtValidation(token);
+    const user = await User.findByIdAndUpdate(id, args);
     if (!user) {
       return {
         code: "400",
@@ -105,11 +105,11 @@ export const updateUser = async (id: string, args: {}, token: string) => {
   }
 };
 
-export const delUser = async (id: string, token: string) => {
+export const del = async (id: string, token: string) => {
   try {
-    const validated = await jwtValidation(token);
+    await jwtValidation(token);
     const user = await User.findByIdAndUpdate(
-      validated.id,
+      id,
       { state: false },
       { new: true }
     );

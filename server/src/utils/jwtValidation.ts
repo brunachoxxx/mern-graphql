@@ -8,6 +8,6 @@ export const jwtValidation = async (token: string) => {
   const data = jwt.verify(token, SECRETJWTKEY);
   const user = await User.findById(data);
   if (!user) throw new Error("User doesn't exist");
-  if (!user.state) throw new Error("User not registered");
+  if (!user.state) throw new Error("User was deleted");
   return user;
 };
