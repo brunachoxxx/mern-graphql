@@ -16,7 +16,7 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addProduct?: Maybe<Product>;
+  addProduct?: Maybe<ProductMutationResponse>;
   delProduct?: Maybe<ProductMutationResponse>;
   delUser?: Maybe<UserMutationResponse>;
   loginUser?: Maybe<UserMutationResponse>;
@@ -64,7 +64,6 @@ export type MutationUpdateProductArgs = {
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   quantity?: InputMaybe<Scalars['Int']>;
-  state?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -78,12 +77,12 @@ export type MutationUpdateUserArgs = {
 
 export type Product = {
   __typename?: 'Product';
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Int']>;
   quantity?: Maybe<Scalars['Int']>;
-  state?: Maybe<Scalars['Boolean']>;
 };
 
 export type ProductMutationResponse = {
@@ -229,7 +228,7 @@ export type ResolversParentTypes = {
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'name' | 'price' | 'quantity'>>;
+  addProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'name' | 'price' | 'quantity'>>;
   delProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelProductArgs, 'id'>>;
   delUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationDelUserArgs, 'id'>>;
   loginUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
@@ -239,12 +238,12 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  state?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -7,9 +7,9 @@ type Product {
   name: String
   price: Int
   quantity: Int
-  state: Boolean
   img: String
   id: ID
+  description: String
   #createdAt: String
   #updatedAt: String
 }
@@ -28,7 +28,7 @@ type Mutation {
     quantity: Int!
     description: String!
     img: String
-  ): Product
+  ): ProductMutationResponse
 
   updateProduct(
     id: ID!
@@ -36,7 +36,6 @@ type Mutation {
     price: Int
     quantity: Int
     description: String
-    state: Boolean
     img: String
   ): ProductMutationResponse
 

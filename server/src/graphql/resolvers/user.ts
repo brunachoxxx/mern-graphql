@@ -17,7 +17,7 @@ export const userResolvers: Resolvers = {
     },
 
     updateUser: async (_, args, { token }) => {
-      return await update(args.id, args, token);
+      return await update(args, token);
     },
 
     delUser: async (_, { id }, { token }) => {

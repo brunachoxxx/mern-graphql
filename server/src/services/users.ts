@@ -1,4 +1,9 @@
-import { user } from "../interface/user.js";
+import {
+  User as userType,
+  MutationRegUserArgs,
+  MutationLoginUserArgs,
+  MutationUpdateUserArgs,
+} from "../interface/resolver-types.js";
 import User from "../models/user.js";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
@@ -6,7 +11,7 @@ import pkg from "bcryptjs";
 import { jwtValidation } from "../utils/jwtValidation.js";
 const { genSaltSync, hashSync, compare } = pkg;
 
-export const reg = async ({ email, password }: user) => {
+export const reg = async ({ email, password }: MutationRegUserArgs) => {
   try {
     const onDb = await User.findOne({ email });
     if (!onDb) {
@@ -39,7 +44,7 @@ export const reg = async ({ email, password }: user) => {
   }
 };
 
-export const login = async ({ email, password }: user) => {
+export const login = async ({ email, password }: MutationLoginUserArgs) => {
   try {
     const onDb = await User.findOne({ email });
     if (!onDb) {
@@ -77,11 +82,14 @@ export const login = async ({ email, password }: user) => {
   }
 };
 
-export const update = async (id: string, args: {}, token: string) => {
+export const update = async (
+  { id, ...rest }: MutationUpdateUserArgs,
+  token: string
+) => {
   try {
     console.log(token);
     await jwtValidation(token);
-    const user = await User.findByIdAndUpdate(id, args);
+    const user = await User.findByIdAndUpdate(id, rest);
     if (!user) {
       return {
         code: "400",
