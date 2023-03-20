@@ -1,3 +1,5 @@
+scalar USCurrency
+
 type Query {
   products: [Product]
   product(id: ID!): Product
@@ -5,7 +7,7 @@ type Query {
 
 type Product {
   name: String
-  price: Int
+  price: USCurrency
   quantity: Int
   img: String
   id: ID
@@ -24,7 +26,7 @@ type ProductMutationResponse {
 type Mutation {
   addProduct(
     name: String!
-    price: Int!
+    price: USCurrency!
     quantity: Int!
     description: String!
     img: String
@@ -33,7 +35,7 @@ type Mutation {
   updateProduct(
     id: ID!
     name: String
-    price: Int
+    price: USCurrency
     quantity: Int
     description: String
     img: String

@@ -3,6 +3,7 @@ import { userResolvers } from "./resolvers/user.js";
 import { productResolvers } from "./resolvers/product.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import { typeDefs as scalarsTd, resolvers as scalarR } from "graphql-scalars";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -25,5 +26,15 @@ const productTypeDefs = readFileSync(__dirname + "/schemas/product.graphql", {
   encoding: "utf-8",
 });
 
-export const typeDefs = [rootTypeDefs, userTypeDefs, productTypeDefs];
-export const resolvers = [rootRresolvers, userResolvers, productResolvers];
+export const typeDefs = [
+  rootTypeDefs,
+  userTypeDefs,
+  productTypeDefs,
+  scalarsTd,
+];
+export const resolvers = [
+  rootRresolvers,
+  userResolvers,
+  productResolvers,
+  scalarR,
+];

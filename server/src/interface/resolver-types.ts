@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,6 +12,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  EmailAdress: any;
+  JWT: any;
+  USCurrency: any;
 };
 
 export type Mutation = {
@@ -30,7 +33,7 @@ export type MutationAddProductArgs = {
   description: Scalars['String'];
   img?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  price: Scalars['Int'];
+  price: Scalars['USCurrency'];
   quantity: Scalars['Int'];
 };
 
@@ -62,13 +65,13 @@ export type MutationUpdateProductArgs = {
   id: Scalars['ID'];
   img?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
-  price?: InputMaybe<Scalars['Int']>;
+  price?: InputMaybe<Scalars['USCurrency']>;
   quantity?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type MutationUpdateUserArgs = {
-  email?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['EmailAdress']>;
   id: Scalars['ID'];
   img?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
@@ -81,7 +84,7 @@ export type Product = {
   id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Int']>;
+  price?: Maybe<Scalars['USCurrency']>;
   quantity?: Maybe<Scalars['Int']>;
 };
 
@@ -114,7 +117,7 @@ export type QueryUserArgs = {
 export type User = {
   __typename?: 'User';
   auth?: Maybe<Scalars['Boolean']>;
-  email?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['EmailAdress']>;
   id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -127,7 +130,7 @@ export type UserMutationResponse = {
   code: Scalars['String'];
   message: Scalars['String'];
   success: Scalars['Boolean'];
-  token?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['JWT']>;
   user?: Maybe<User>;
 };
 
@@ -202,13 +205,16 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  EmailAdress: ResolverTypeWrapper<Scalars['EmailAdress']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  JWT: ResolverTypeWrapper<Scalars['JWT']>;
   Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
   ProductMutationResponse: ResolverTypeWrapper<ProductMutationResponse>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  USCurrency: ResolverTypeWrapper<Scalars['USCurrency']>;
   User: ResolverTypeWrapper<User>;
   UserMutationResponse: ResolverTypeWrapper<UserMutationResponse>;
 };
@@ -216,16 +222,27 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  EmailAdress: Scalars['EmailAdress'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  JWT: Scalars['JWT'];
   Mutation: {};
   Product: Product;
   ProductMutationResponse: ProductMutationResponse;
   Query: {};
   String: Scalars['String'];
+  USCurrency: Scalars['USCurrency'];
   User: User;
   UserMutationResponse: UserMutationResponse;
 };
+
+export interface EmailAdressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAdress'], any> {
+  name: 'EmailAdress';
+}
+
+export interface JwtScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JWT'], any> {
+  name: 'JWT';
+}
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'description' | 'name' | 'price' | 'quantity'>>;
@@ -242,7 +259,7 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  price?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['USCurrency']>, ParentType, ContextType>;
   quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -262,9 +279,13 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 };
 
+export interface UsCurrencyScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['USCurrency'], any> {
+  name: 'USCurrency';
+}
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   auth?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['EmailAdress']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -277,16 +298,19 @@ export type UserMutationResponseResolvers<ContextType = any, ParentType extends 
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['JWT']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
+  EmailAdress?: GraphQLScalarType;
+  JWT?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductMutationResponse?: ProductMutationResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  USCurrency?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   UserMutationResponse?: UserMutationResponseResolvers<ContextType>;
 };

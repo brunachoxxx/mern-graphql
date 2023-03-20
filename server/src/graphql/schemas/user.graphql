@@ -1,3 +1,6 @@
+scalar EmailAdress
+scalar JWT
+
 type Query {
   users: [User]
   user(id: ID!): User
@@ -5,7 +8,7 @@ type Query {
 
 type User {
   name: String
-  email: String
+  email: EmailAdress
   password: String
   state: Boolean
   auth: Boolean
@@ -20,7 +23,7 @@ type UserMutationResponse {
   success: Boolean!
   message: String!
   user: User
-  token: String
+  token: JWT
 }
 
 type Mutation {
@@ -31,7 +34,7 @@ type Mutation {
   updateUser(
     id: ID!
     name: String
-    email: String
+    email: EmailAdress
     password: String
     img: String
   ): UserMutationResponse
