@@ -1,5 +1,6 @@
 scalar EmailAdress
 scalar JWT
+scalar Date
 
 type Query {
   users: [User]
@@ -11,11 +12,12 @@ type User {
   email: EmailAdress
   password: String
   state: Boolean
+  role: String
   auth: Boolean
   img: String
   id: ID
-  #createdAt: String
-  #updatedAt: String
+  createdAt: Date
+  updatedAt: Date
 }
 
 type UserMutationResponse {

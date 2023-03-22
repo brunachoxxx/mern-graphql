@@ -1,11 +1,11 @@
 import User from "../../models/user.js";
 import { Resolvers } from "../../interface/resolver-types.js";
-import { reg, login, update, del } from "../../services/users.js";
+import { reg, login, update, del, getUser } from "../../services/users.js";
 
 export const userResolvers: Resolvers = {
   Query: {
     users: async () => await User.find({ state: true }),
-    user: async (_, { id }) => await User.findOne({ id }, { state: true }),
+    user: async (_, { id }) => await getUser(id),
   },
   Mutation: {
     regUser: async (_, args) => {

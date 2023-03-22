@@ -1,5 +1,4 @@
 import {
-  User as userType,
   MutationRegUserArgs,
   MutationLoginUserArgs,
   MutationUpdateUserArgs,
@@ -10,6 +9,18 @@ import jwt from "jsonwebtoken";
 import pkg from "bcryptjs";
 import { jwtValidation } from "../utils/jwtValidation.js";
 const { genSaltSync, hashSync, compare } = pkg;
+
+export const getUser = async (id: string) => {
+  try {
+    console.log(id);
+    const data = await User.findById(id);
+    if (data?.state === false) throw new Error("User not registered");
+    console.log(data);
+    return data;
+  } catch (error: any) {
+    return error.message;
+  }
+};
 
 export const reg = async ({ email, password }: MutationRegUserArgs) => {
   try {

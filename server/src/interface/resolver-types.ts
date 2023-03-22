@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   EmailAdress: any;
   JWT: any;
   USCurrency: any;
@@ -80,12 +81,14 @@ export type MutationUpdateUserArgs = {
 
 export type Product = {
   __typename?: 'Product';
+  createdAt?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['USCurrency']>;
   quantity?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type ProductMutationResponse = {
@@ -117,12 +120,15 @@ export type QueryUserArgs = {
 export type User = {
   __typename?: 'User';
   auth?: Maybe<Scalars['Boolean']>;
+  createdAt?: Maybe<Scalars['Date']>;
   email?: Maybe<Scalars['EmailAdress']>;
   id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']>;
   state?: Maybe<Scalars['Boolean']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type UserMutationResponse = {
@@ -205,6 +211,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   EmailAdress: ResolverTypeWrapper<Scalars['EmailAdress']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
@@ -222,6 +229,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Date: Scalars['Date'];
   EmailAdress: Scalars['EmailAdress'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
@@ -235,6 +243,10 @@ export type ResolversParentTypes = {
   User: User;
   UserMutationResponse: UserMutationResponse;
 };
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export interface EmailAdressScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['EmailAdress'], any> {
   name: 'EmailAdress';
@@ -255,12 +267,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['USCurrency']>, ParentType, ContextType>;
   quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -285,12 +299,15 @@ export interface UsCurrencyScalarConfig extends GraphQLScalarTypeConfig<Resolver
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   auth?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['EmailAdress']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   state?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -304,6 +321,7 @@ export type UserMutationResponseResolvers<ContextType = any, ParentType extends 
 };
 
 export type Resolvers<ContextType = any> = {
+  Date?: GraphQLScalarType;
   EmailAdress?: GraphQLScalarType;
   JWT?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;

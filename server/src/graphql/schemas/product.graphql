@@ -1,4 +1,5 @@
 scalar USCurrency
+scalar Date
 
 type Query {
   products: [Product]
@@ -12,8 +13,8 @@ type Product {
   img: String
   id: ID
   description: String
-  #createdAt: String
-  #updatedAt: String
+  createdAt: Date
+  updatedAt: Date
 }
 
 type ProductMutationResponse {

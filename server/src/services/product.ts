@@ -5,6 +5,22 @@ import {
 import Product from "../models/products.js";
 import { jwtValidation } from "../utils/jwtValidation.js";
 
+export const getProduct = async (id: string) => {
+  try {
+    try {
+      console.log(id);
+      const data = await Product.findById(id);
+      if (data?.quantity === 0) {
+        throw new Error(`No more ${data.name} on storage`);
+      }
+      console.log(data);
+      return data;
+    } catch (error: any) {
+      return error.message;
+    }
+  } catch (error) {}
+};
+
 export const add = async (args: MutationAddProductArgs, token: string) => {
   try {
     await jwtValidation(token);

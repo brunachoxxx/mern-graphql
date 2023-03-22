@@ -1,14 +1,14 @@
 import { Resolvers } from "../../interface/resolver-types.js";
 import Product from "../../models/products.js";
-import { add, update, del } from "../../services/product.js";
+import { add, update, del, getProduct } from "../../services/product.js";
 
 export const productResolvers: Resolvers = {
   Query: {
     products: async () => {
       return await Product.find();
     },
-    product: async (_, id) => {
-      return await Product.findById(id);
+    product: async (_, { id }) => {
+      return await getProduct(id);
     },
   },
 
