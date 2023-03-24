@@ -17,6 +17,11 @@ type Product {
   updatedAt: Date
 }
 
+type ProductImg {
+  publicKey: String
+  publicUrl: String
+}
+
 type ProductMutationResponse {
   code: String!
   success: Boolean!
@@ -43,4 +48,6 @@ type Mutation {
   ): ProductMutationResponse
 
   delProduct(id: ID!): ProductMutationResponse
+
+  uploadProductImg(id: ID!, img: String!): ProductMutationResponse
 }

@@ -6,6 +6,7 @@ const prodcutModel = new Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     quantity: { type: Number, default: 1 },
+    img: { type: String },
   },
   {
     timestamps: true,

@@ -1,15 +1,16 @@
 import "./App.css";
-import StoreFront from "./storefront";
-import { Route } from "react-router-dom";
+import StoreFront from "./StoreFront";
+import { Routes, Route } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
 import NotFound from "./NotFound";
 function App() {
   return (
     <div className="container">
-      <Route path="/" element={<StoreFront />}></Route>
-      <Route path="/:id" element={<ProductDetails />}></Route>
-      <Route path="*" element={<NotFound />}></Route>{" "}
-      <Route path="/storefront" element={<StoreFront />}></Route>
+      <Routes>
+        <Route path="/" element={<StoreFront />} />
+        <Route path="/:productId" element={<ProductDetails />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

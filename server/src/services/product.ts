@@ -3,22 +3,18 @@ import {
   MutationAddProductArgs,
 } from "../interface/resolver-types.js";
 import Product from "../models/products.js";
+import { uploadImage } from "../utils/Cloudinary.js";
 import { jwtValidation } from "../utils/jwtValidation.js";
 
 export const getProduct = async (id: string) => {
   try {
-    try {
-      console.log(id);
-      const data = await Product.findById(id);
-      if (data?.quantity === 0) {
-        throw new Error(`No more ${data.name} on storage`);
-      }
-      console.log(data);
-      return data;
-    } catch (error: any) {
-      return error.message;
-    }
-  } catch (error) {}
+    console.log(id);
+    const data = await Product.findById(id);
+    console.log(data);
+    return data;
+  } catch (error: any) {
+    return error.message;
+  }
 };
 
 export const add = async (args: MutationAddProductArgs, token: string) => {
@@ -97,6 +93,44 @@ export const del = async (id: string, token: string) => {
       code: "400",
       success: false,
       message: "Product not deleted: " + error.message,
+    };
+  }
+};
+
+export const uploadImg = async (
+  id: string,
+  imagePath: string,
+  token: string
+) => {
+  try {
+    await jwtValidation(token);
+    const image = await uploadImage(imagePath, "productImg");
+    if (!image) {
+      return {
+        code: "400",
+        success: false,
+        message: "Can't upload File",
+      };
+    }
+    const product = await Product.findByIdAndUpdate(id, { image });
+    if (!product) {
+      return {
+        code: "400",
+        success: false,
+        message: "Can't find Product",
+      };
+    }
+    return {
+      code: "200",
+      success: true,
+      message: `${product.name} profile pic Updated`,
+      product: product,
+    };
+  } catch (error: any) {
+    return {
+      code: "400",
+      success: false,
+      message: "Product not updated: " + error.message,
     };
   }
 };

@@ -1,6 +1,12 @@
 import { Resolvers } from "../../interface/resolver-types.js";
 import Product from "../../models/products.js";
-import { add, update, del, getProduct } from "../../services/product.js";
+import {
+  add,
+  update,
+  del,
+  getProduct,
+  uploadImg,
+} from "../../services/product.js";
 
 export const productResolvers: Resolvers = {
   Query: {
@@ -23,6 +29,10 @@ export const productResolvers: Resolvers = {
 
     delProduct: async (_, { id }, { token }) => {
       return await del(id, token);
+    },
+
+    uploadProductImg: async (_, { id, img }, { token }) => {
+      return await uploadImg(id, img, token);
     },
   },
 };

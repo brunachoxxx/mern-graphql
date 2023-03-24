@@ -27,6 +27,7 @@ export type Mutation = {
   regUser?: Maybe<UserMutationResponse>;
   updateProduct?: Maybe<ProductMutationResponse>;
   updateUser?: Maybe<UserMutationResponse>;
+  uploadProductImg?: Maybe<ProductMutationResponse>;
 };
 
 
@@ -79,6 +80,12 @@ export type MutationUpdateUserArgs = {
   password?: InputMaybe<Scalars['String']>;
 };
 
+
+export type MutationUploadProductImgArgs = {
+  id: Scalars['ID'];
+  img: Scalars['String'];
+};
+
 export type Product = {
   __typename?: 'Product';
   createdAt?: Maybe<Scalars['Date']>;
@@ -89,6 +96,12 @@ export type Product = {
   price?: Maybe<Scalars['USCurrency']>;
   quantity?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Date']>;
+};
+
+export type ProductImg = {
+  __typename?: 'ProductImg';
+  publicKey?: Maybe<Scalars['String']>;
+  publicUrl?: Maybe<Scalars['String']>;
 };
 
 export type ProductMutationResponse = {
@@ -218,6 +231,7 @@ export type ResolversTypes = {
   JWT: ResolverTypeWrapper<Scalars['JWT']>;
   Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
+  ProductImg: ResolverTypeWrapper<ProductImg>;
   ProductMutationResponse: ResolverTypeWrapper<ProductMutationResponse>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -236,6 +250,7 @@ export type ResolversParentTypes = {
   JWT: Scalars['JWT'];
   Mutation: {};
   Product: Product;
+  ProductImg: ProductImg;
   ProductMutationResponse: ProductMutationResponse;
   Query: {};
   String: Scalars['String'];
@@ -264,6 +279,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   regUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationRegUserArgs, 'email' | 'password'>>;
   updateProduct?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'id'>>;
   updateUser?: Resolver<Maybe<ResolversTypes['UserMutationResponse']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id'>>;
+  uploadProductImg?: Resolver<Maybe<ResolversTypes['ProductMutationResponse']>, ParentType, ContextType, RequireFields<MutationUploadProductImgArgs, 'id' | 'img'>>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -275,6 +291,12 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   price?: Resolver<Maybe<ResolversTypes['USCurrency']>, ParentType, ContextType>;
   quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductImgResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductImg'] = ResolversParentTypes['ProductImg']> = {
+  publicKey?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publicUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -326,6 +348,7 @@ export type Resolvers<ContextType = any> = {
   JWT?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  ProductImg?: ProductImgResolvers<ContextType>;
   ProductMutationResponse?: ProductMutationResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   USCurrency?: GraphQLScalarType;

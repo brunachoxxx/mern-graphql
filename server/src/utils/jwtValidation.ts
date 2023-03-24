@@ -10,5 +10,10 @@ export const jwtValidation = async (token: string) => {
   const user = await User.findById(id);
   if (!user) throw new Error("User doesn't exist");
   if (!user.state) throw new Error("User was deleted");
-  return console.log(`${user} authenticated`);
+  return {
+    code: "200",
+    success: true,
+    message: `${user.name} authenticated`,
+    user,
+  };
 };
