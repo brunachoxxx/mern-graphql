@@ -8,9 +8,9 @@ import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./graphql/index.js";
 import { dbConnect } from "./db/mongodb.js";
 import multer from "multer";
+import { uploader } from "./services/upload.js";
 import { fileURLToPath } from "url";
 import path from "path";
-import { uploader } from "./services/upload.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
