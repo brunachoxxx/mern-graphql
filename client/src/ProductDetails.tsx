@@ -1,4 +1,4 @@
-import { useParams, NavLink, Outlet } from "react-router-dom";
+import { useParams, NavLink, Link, Outlet } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 import Loader from "./Loader";
 
@@ -36,34 +36,43 @@ export default function ProductDetails() {
             <ul className="nav nav-tabs card-header-tabs">
               <li className="nav-item">
                 <NavLink
-                  className="nav-link active"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                  end
                   aria-current="true"
                   to={""}
                 >
-                  Active
+                  Product Details
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to={""}>
-                  Link
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                  to={"nutrition"}
+                >
+                  Nutrition
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to={""} className="nav-link disabled">
-                  Disabled
+                <NavLink
+                  to={"storage"}
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  Storage
                 </NavLink>
               </li>
             </ul>
           </div>
-          <Outlet context={data.product} />
           <div className="card-body">
-            <h5 className="card-title">{data.product.name}</h5>
-            <img src={data.product.img} className="card-img-top" alt="..." />
-            <p className="card-text">{data.product.description}</p>
-            <p className="card-text">Quantity left: {data.product.quantity}</p>
-            <NavLink to={""} className="btn btn-primary">
+            <Outlet context={data.product} />
+            <Link to={""} className="btn btn-primary">
               {data.product.price}
-            </NavLink>
+            </Link>
           </div>
         </div>
       )}

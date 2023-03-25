@@ -52,7 +52,7 @@ app.use(
     context: async ({ req }) => ({ token: req.headers.token }),
   })
 );
-
+//upload endpoint
 app.post("/uploads", upload.single("file"), uploader);
 
 // Modified server startup
