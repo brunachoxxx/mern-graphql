@@ -1,3 +1,4 @@
+import path from "path";
 import {
   MutationUpdateProductArgs,
   MutationAddProductArgs,
@@ -96,14 +97,15 @@ export const del = async (id: string, token: string) => {
     };
   }
 };
-
-export const uploadImg = async (
+//gaphql upload implementation not finish...
+/* export const uploadImg = async (
   id: string,
   imagePath: string,
   token: string
 ) => {
   try {
     await jwtValidation(token);
+    
     const image = await uploadImage(imagePath, "productImg");
     if (!image) {
       return {
@@ -134,3 +136,4 @@ export const uploadImg = async (
     };
   }
 };
+ */

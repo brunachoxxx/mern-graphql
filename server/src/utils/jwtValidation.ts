@@ -1,5 +1,5 @@
 import "dotenv/config";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 
 export const jwtValidation = async (token: string) => {

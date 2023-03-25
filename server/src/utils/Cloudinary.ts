@@ -49,18 +49,13 @@ export const uploadImage = async (
         ],
       };
       break;
-
-    default:
-      throw new Error(
-        "Option not alowed or Inexistent must be 'productImg' or 'userImg'"
-      );
   }
 
   try {
     // Upload the image
     const result = await cloudinary.uploader.upload(imagePath, Options);
     console.log(result);
-    return result;
+    return result.url;
   } catch (error) {
     console.error(error);
   }

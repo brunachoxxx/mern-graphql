@@ -7,7 +7,16 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { typeDefs, resolvers } from "./graphql/index.js";
 import { dbConnect } from "./db/mongodb.js";
+import multer from "multer";
+import { fileURLToPath } from "url";
+import path from "path";
+import { uploader } from "./services/upload.js";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+//files uploads
+const upload = multer({ dest: __dirname + "/uploads/" });
+//interface
 interface MyContext {
   token?: string;
 }
@@ -43,6 +52,8 @@ app.use(
     context: async ({ req }) => ({ token: req.headers.token }),
   })
 );
+
+app.post("/uploads", upload.single("file"), uploader);
 
 // Modified server startup
 await new Promise<void>((resolve) =>
