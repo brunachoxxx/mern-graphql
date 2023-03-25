@@ -22,7 +22,7 @@ export const uploader = async (req: Request, res: Response) => {
     console.log(req.file);
     const path = req.file?.path;
     if (!path) {
-      return res.json({ message: "Can't upload file" });
+      return res.status(400).json({ message: "Can't upload file" });
     }
     const uImg = await uploadImage(path, "productImg");
     const product = await Product.findByIdAndUpdate(id, { img: uImg });

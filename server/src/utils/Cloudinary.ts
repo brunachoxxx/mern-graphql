@@ -20,7 +20,7 @@ export const uploadImage = async (
   let Options;
 
   switch (Option) {
-    case "productImg":
+    case "userImg":
       Options = {
         use_filename: true,
         unique_filename: false,
@@ -29,14 +29,14 @@ export const uploadImage = async (
         overwrite: true,
         transformation: [
           { radius: "max" },
-          { effect: "outline:100", color: "lightblue" },
+          { effect: "outline:50", color: "lightblue" },
           { background: "lightblue" },
           { height: 300, crop: "scale" },
         ],
       };
       break;
 
-    case "userImg":
+    case "productImg":
       Options = {
         use_filename: true,
         unique_filename: false,
@@ -45,7 +45,7 @@ export const uploadImage = async (
         overwrite: true,
         transformation: [
           { radius: 60 },
-          { width: 400, height: 250, gravity: "south", crop: "fill" },
+          { width: 400, height: 250, gravity: "auto", crop: "fill" },
         ],
       };
       break;
